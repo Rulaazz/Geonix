@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../../config/api';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -89,7 +90,7 @@ const Dashboard = () => {
 
       try {
         const response = await axios.get(
-          'http://localhost:5001/api/progress',
+          `${API_BASE_URL}/api/progress`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -128,7 +129,7 @@ const Dashboard = () => {
 
       try {
         const response = await axios.get(
-          'http://localhost:5001/api/lesson-progress',
+         `${API_BASE_URL}/api/lesson-progress`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -176,7 +177,7 @@ const Dashboard = () => {
 
       try {
         const response = await axios.get(
-          'http://localhost:5001/api/bookings/my',
+          `${API_BASE_URL}/api/bookings/my`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

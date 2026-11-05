@@ -1,4 +1,5 @@
 
+import { API_BASE_URL } from '../../config/api';
 import React, {
   useCallback,
   useEffect,
@@ -12,7 +13,6 @@ import { useUser } from '../../components/UserContext/UserContext';
 
 import './MyLessons.css';
 
-const API_URL = 'http://localhost:5001';
 
 const STATUS_LABELS = {
   pending: 'Pending',
@@ -286,7 +286,7 @@ function MyLessons() {
         setError('');
 
         const response = await axios.get(
-          `${API_URL}/api/bookings/my`,
+          `${API_BASE_URL}/api/bookings/my`,
           authConfig
         );
 
@@ -367,7 +367,7 @@ function MyLessons() {
         setBookingError('');
 
         const response = await axios.get(
-          `${API_URL}/api/instructors`,
+          `${API_BASE_URL}/api/instructors`,
           authConfig
         );
 
@@ -415,7 +415,7 @@ function MyLessons() {
         setSelectedSlot('');
 
         const response = await axios.get(
-          `${API_URL}/api/availability/instructor/${selectedInstructorId}`,
+          `${API_BASE_URL}/api/availability/instructor/${selectedInstructorId}`,
           authConfig
         );
 
@@ -501,7 +501,7 @@ function MyLessons() {
       setSuccess('');
 
       await axios.put(
-        `${API_URL}/api/bookings/${bookingId}/cancel`,
+        `${API_BASE_URL}/api/bookings/${bookingId}/cancel`,
         {},
         authConfig
       );
@@ -567,7 +567,7 @@ function MyLessons() {
       setBookingSubmitting(true);
 
       const response = await axios.post(
-        `${API_URL}/api/bookings`,
+        `${API_BASE_URL}/api/bookings`,
         {
           instructorId: selectedInstructorId,
           date: selectedDate,

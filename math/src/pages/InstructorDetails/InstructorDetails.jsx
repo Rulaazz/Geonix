@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../../config/api';
 import React, {
   useEffect,
   useMemo,
@@ -13,7 +14,6 @@ import {
 
 import './InstructorDetails.css';
 
-const API_URL = 'http://localhost:5001';
 
 const dayNames = [
   'Sunday',
@@ -184,7 +184,7 @@ function InstructorDetails() {
 
         const response =
           await axios.get(
-            `${API_URL}/api/instructors`,
+            `${API_BASE_URL}/api/instructors`,
             config
           );
 
@@ -250,7 +250,7 @@ function InstructorDetails() {
 
         const availabilityResponse =
           await axios.get(
-            `${API_URL}/api/availability/instructor/${userId}`,
+            `${API_BASE_URL}/api/availability/instructor/${userId}`,
             config
           );
 
@@ -496,7 +496,7 @@ function InstructorDetails() {
 
       const response =
         await axios.post(
-          `${API_URL}/api/bookings`,
+          `${API_BASE_URL}/api/bookings`,
           {
             instructorId:
               userId,

@@ -14,13 +14,23 @@ const server = http.createServer(app);
 /* =========================
    MIDDLEWARE
 ========================= */
+const allowedOrigins = [
+  'http://localhost:3000',
+  process.env.FRONTEND_URL,
+].filter(Boolean);
 
-app.use(
-  cors({
-    origin: 'http://localhost:3000',
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
@@ -137,21 +147,12 @@ app.get(
    SOCKET.IO
 ========================= */
 
-const io = new Server(
-  server,
-  {
-    cors: {
-      origin: 'http://localhost:3000',
-
-      methods: [
-        'GET',
-        'POST',
-      ],
-
-      credentials: true,
-    },
-  }
-);
+const io = new Server(server, {
+  cors: {
+    ...corsOptions,
+    methods: ['GET', 'POST'],
+  },
+});
 
 /* =========================
    MODELS

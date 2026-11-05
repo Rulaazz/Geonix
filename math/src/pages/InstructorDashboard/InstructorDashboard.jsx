@@ -1,3 +1,4 @@
+import { API_BASE_URL as API_URL } from '../../config/api';
 import React, {
   useCallback,
   useEffect,
@@ -10,7 +11,6 @@ import { Link } from 'react-router-dom';
 
 import './InstructorDashboard.css';
 
-const API_URL = 'http://localhost:5001';
 
 const days = [
   { value: 0, label: 'Sunday' },

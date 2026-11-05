@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../../config/api';
 import React, {
   createContext,
   useState,
@@ -27,7 +28,7 @@ export const UserProvider = ({ children }) => {
     const loadUser = async () => {
       try {
         const response = await fetch(
-          'http://localhost:5001/api/auth/me',
+          `${API_BASE_URL}/api/auth/me`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

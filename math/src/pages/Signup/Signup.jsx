@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../../config/api';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -17,7 +18,7 @@ export default function Signup() {
     setError('');
 
     try {
-      await axios.post('http://localhost:5001/api/auth/signup', form);
+      await axios.post(`${API_BASE_URL}/api/auth/signup`, form);
       navigate('/login');
     } catch (err) {
   console.log('Signup error:', err);

@@ -1,10 +1,10 @@
+import { API_BASE_URL as API_URL } from '../../config/api';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import './Instructors.css';
 
-const API_URL = 'http://localhost:5001';
 
 function Instructors() {
   const [instructors, setInstructors] = useState([]);

@@ -1,11 +1,10 @@
 
+import { API_BASE_URL as API_URL } from '../../config/api';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import { useUser } from '../../components/UserContext/UserContext';
 import './Profile.css';
-
-const API_URL = 'http://localhost:5001';
 
 const INITIAL_FORM = {
   name: '',

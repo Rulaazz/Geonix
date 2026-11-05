@@ -1,4 +1,5 @@
 
+import { API_BASE_URL, SOCKET_URL } from '../../config/api';
 import React, {
   useCallback,
   useEffect,
@@ -19,8 +20,6 @@ import { useUser } from '../../components/UserContext/UserContext';
 
 import './Classroom.css';
 
-const API_URL = 'http://localhost:5001';
-const SOCKET_URL = 'http://localhost:5001';
 
 const rtcConfiguration = {
   iceServers: [
@@ -89,7 +88,7 @@ function Classroom() {
         setError('');
 
         const response = await axios.get(
-          `${API_URL}/api/bookings/${bookingId}`,
+          `${API_BASE_URL}/api/bookings/${bookingId}`,
           getAuthConfig()
         );
 
@@ -818,7 +817,7 @@ function Classroom() {
       setError('');
 
       await axios.put(
-        `${API_URL}/api/bookings/${bookingId}/complete`,
+        `${API_BASE_URL}/api/bookings/${bookingId}/complete`,
         {},
         getAuthConfig()
       );

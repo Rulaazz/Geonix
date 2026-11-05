@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../../config/api';
 import React, {
   useEffect,
   useMemo,
@@ -189,7 +190,7 @@ const VideoLessons = () => {
 
       try {
         const response = await axios.get(
-          'http://localhost:5001/api/lesson-progress',
+          `${API_BASE_URL}/api/lesson-progress`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../../config/api';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -1858,7 +1859,7 @@ const Practice = () => {
 
         const response =
           await axios.post(
-            'http://localhost:5001/api/progress/answer',
+            `${API_BASE_URL}/api/progress/answer`,
             {
               correct:
                 isCorrect,

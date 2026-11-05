@@ -1,4 +1,5 @@
 
+import { API_BASE_URL } from '../../config/api';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -6,7 +7,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../../components/UserContext/UserContext';
 import '../Login/Login.css';
 
-const API_URL = 'http://localhost:5001';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        `${API_URL}/api/auth/login`,
+        `${API_BASE_URL}/api/auth/login`,
         {
           email: form.email.trim(),
           password: form.password,
@@ -55,7 +55,7 @@ const Login = () => {
       localStorage.setItem('token', token);
 
       const userResponse = await axios.get(
-        `${API_URL}/api/auth/me`,
+        `${API_BASE_URL}/api/auth/me`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

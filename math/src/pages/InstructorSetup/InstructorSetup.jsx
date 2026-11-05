@@ -1,3 +1,4 @@
+import { API_BASE_URL as API_URL } from '../../config/api';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -6,7 +7,6 @@ import { useUser } from '../../components/UserContext/UserContext';
 
 import './InstructorSetup.css';
 
-const API_URL = 'http://localhost:5001';
 
 function InstructorSetup() {
   const navigate = useNavigate();

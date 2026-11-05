@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../../config/api';
 import React, {
   useEffect,
   useMemo,
@@ -159,7 +160,7 @@ const VideoLesson = () => {
 
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/lesson-progress/${lesson.id}`,
+          `${API_BASE_URL}/api/lesson-progress/${lesson.id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -207,7 +208,7 @@ const VideoLesson = () => {
 
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/quiz/${lesson.id}`,
+          `${API_BASE_URL}/api/quiz/${lesson.id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -276,7 +277,7 @@ const VideoLesson = () => {
 
     try {
       await axios.post(
-        `http://localhost:5001/api/lesson-progress/${lesson.id}`,
+        `${API_BASE_URL}/api/lesson-progress/${lesson.id}`,
         {
           completed: true,
         },
@@ -486,7 +487,7 @@ const VideoLesson = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5001/api/quiz/${lesson.id}`,
+        `${API_BASE_URL}/api/quiz/${lesson.id}`,
         {
           score,
           totalQuestions: quiz.length,
