@@ -1,62 +1,61 @@
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+
 import { useUser } from '../../components/UserContext/UserContext';
 import './Profile.css';
 
-const Profile = () => {
-  const { user: currentUser, login } = useUser();
+const API_URL = 'http://localhost:5001';
 
-  const [user, setUser] = useState({
-    name: '',
-    email: '',
+const INITIAL_FORM = {
+  name: '',
+  email: '',
+  gradeLevel: '',
+  learningGoal: '',
+  bio: '',
+};
+
+const Profile = () => {
+  const { user, login } = useUser();
+
+  const [formData, setFormData] = useState(INITIAL_FORM);
+  const [stats, setStats] = useState({
+    questionsAnswered: 0,
+    correctAnswers: 0,
+    accuracy: 0,
   });
 
-  const [questionsAnswered, setQuestionsAnswered] = useState(0);
-  const [correctAnswers, setCorrectAnswers] = useState(0);
-
-  const [progressLoading, setProgressLoading] = useState(true);
-
-  const [saved, setSaved] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
-
-  const accuracy =
-    questionsAnswered > 0
-      ? Math.round(
-          (correctAnswers / questionsAnswered) * 100
-        )
-      : 0;
-
-  // =========================
-  // LOAD USER
-  // =========================
+  const [success, setSuccess] = useState('');
 
   useEffect(() => {
-    if (currentUser) {
-      setUser({
-        name: currentUser.name || '',
-        email: currentUser.email || '',
-      });
+    if (!user) {
+      setLoading(false);
+      return;
     }
-  }, [currentUser]);
 
+    setFormData({
+      name: user.name || '',
+      email: user.email || '',
+      gradeLevel: user.gradeLevel || '',
+      learningGoal: user.learningGoal || '',
+      bio: user.bio || '',
+    });
 
-  // =========================
-  // LOAD PROGRESS
-  // =========================
+    const fetchProfileData = async () => {
+      setLoading(true);
 
-  useEffect(() => {
-    const loadProgress = async () => {
       try {
         const token = localStorage.getItem('token');
 
         if (!token) {
-          return;
+          throw new Error('Please log in again.');
         }
 
         const response = await axios.get(
-          'http://localhost:5001/api/progress',
+          `${API_URL}/api/progress`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -64,680 +63,344 @@ const Profile = () => {
           }
         );
 
-        const progress = response.data.progress;
+        const progress = response.data || {};
+        const questionsAnswered =
+          Number(progress.questionsAnswered) || 0;
+        const correctAnswers =
+          Number(progress.correctAnswers) || 0;
 
-        setQuestionsAnswered(
-          progress.questionsAnswered
-        );
+        const accuracy = questionsAnswered > 0
+          ? Math.round(
+              (correctAnswers / questionsAnswered) * 100
+            )
+          : 0;
 
-        setCorrectAnswers(
-          progress.correctAnswers
-        );
-
-      } catch (error) {
+        setStats({
+          questionsAnswered,
+          correctAnswers,
+          accuracy,
+        });
+      } catch (requestError) {
         console.error(
-          'GET PROFILE PROGRESS ERROR:',
-          error
+          'PROFILE PROGRESS ERROR:',
+          requestError
         );
 
+        setStats({
+          questionsAnswered: 0,
+          correctAnswers: 0,
+          accuracy: 0,
+        });
       } finally {
-        setProgressLoading(false);
+        setLoading(false);
       }
     };
 
-    loadProgress();
-  }, []);
-
-
-  // =========================
-  // HANDLE INPUT
-  // =========================
+    fetchProfileData();
+  }, [user]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    setUser((previousUser) => ({
-      ...previousUser,
+    setFormData((previous) => ({
+      ...previous,
       [name]: value,
     }));
 
-    setSaved(false);
     setError('');
+    setSuccess('');
   };
 
-
-  // =========================
-  // SAVE PROFILE
-  // =========================
-
-  const handleSave = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      setError('You are not logged in.');
-      return;
-    }
-
-    setSaving(true);
-    setSaved(false);
     setError('');
+    setSuccess('');
+    setSaving(true);
 
     try {
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+        throw new Error('Your session has expired. Please log in again.');
+      }
+
       const response = await axios.put(
-        'http://localhost:5001/api/auth/me',
+        `${API_URL}/api/auth/me`,
         {
-          name: user.name,
-          email: user.email,
+          name: formData.name.trim(),
+          gradeLevel: formData.gradeLevel,
+          learningGoal: formData.learningGoal,
+          bio: formData.bio,
         },
         {
           headers: {
-            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
         }
       );
 
-      const data = response.data;
+      const updatedUser = response.data.user;
 
-      // Update UserContext
-      login(data.user);
-
-      // Update local form
-      setUser({
-        name: data.user.name,
-        email: data.user.email,
-      });
-
-      setSaved(true);
-
-    } catch (error) {
-      console.error(
-        'PROFILE UPDATE ERROR:',
-        error
-      );
-
-      if (error.response?.data?.message) {
-        setError(error.response.data.message);
-      } else {
-        setError(
-          'Could not update profile.'
+      if (!updatedUser) {
+        throw new Error(
+          'The server did not return the updated profile.'
         );
       }
 
+      // Refresh the shared user state and localStorage.
+      login({
+        ...user,
+        ...updatedUser,
+      });
+
+      setFormData({
+        name: updatedUser.name || '',
+        email: updatedUser.email || '',
+        gradeLevel: updatedUser.gradeLevel || '',
+        learningGoal: updatedUser.learningGoal || '',
+        bio: updatedUser.bio || '',
+      });
+
+      setSuccess('Your profile has been updated successfully.');
+    } catch (requestError) {
+      console.error('PROFILE UPDATE ERROR:', requestError);
+
+      if (requestError.response?.data?.message) {
+        setError(requestError.response.data.message);
+      } else if (requestError.message) {
+        setError(requestError.message);
+      } else {
+        setError('Could not update your profile. Please try again.');
+      }
     } finally {
       setSaving(false);
     }
   };
 
+  const initials = (formData.name || user?.name || 'Student')
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part.charAt(0).toUpperCase())
+    .join('');
 
-  // =========================
-  // FIRST LETTER
-  // =========================
-
-  const firstLetter = user.name
-    ? user.name.charAt(0).toUpperCase()
-    : 'S';
-
+  if (!user) {
+    return (
+      <main className="profile-page">
+        <div className="profile-card">
+          Please log in to view your profile.
+        </div>
+      </main>
+    );
+  }
 
   return (
-    <div className="profile-page">
-
-      {/* ================= HEADER ================= */}
-
-      <header className="profile-header">
-
-        <div className="profile-nav">
-
-          <Link
-            to="/dashboard"
-            className="profile-logo"
-          >
-            Geonix
-          </Link>
-
-          <nav className="profile-links">
-
-            <Link to="/dashboard">
-              Dashboard
-            </Link>
-
-            <Link to="/practice">
-              Practice
-            </Link>
-
-            <Link to="/score">
-              Progress
-            </Link>
-
-            <Link
-              to="/profile"
-              className="active"
-            >
-              Profile
-            </Link>
-
-          </nav>
-
-        </div>
-
-      </header>
-
-
-      {/* ================= MAIN ================= */}
-
-      <main className="profile-main">
-
-        {/* ================= INTRO ================= */}
-
-        <section className="profile-intro">
-
-          <p className="profile-small">
-            Your learning space 👤
-          </p>
-
-          <h1>
-            My Profile
-          </h1>
-
-          <p>
-            See your progress, achievements, and account information.
-          </p>
-
-        </section>
-
-
-        {/* ================= PROFILE HERO ================= */}
-
+    <main className="profile-page">
+      <div className="profile-container">
         <section className="profile-hero">
-
-          <div className="profile-avatar-large">
-            {firstLetter}
+          <div className="profile-avatar">
+            {user.avatar ? (
+              <img src={user.avatar} alt="Profile" />
+            ) : (
+              <span>{initials}</span>
+            )}
           </div>
 
           <div className="profile-hero-info">
-
-            <h2>
-              {user.name || 'Student'}
-            </h2>
-
-            <p>
-              {user.email || 'Your email'}
+            <p className="profile-role">
+              {user.role === 'admin'
+                ? 'Geonix Admin'
+                : user.role === 'instructor'
+                  ? 'Geonix Instructor'
+                  : 'Geonix Student'}
             </p>
 
-            <span className="student-badge">
-              🎓 Geonix Student
-            </span>
-
+            <h1>{formData.name || user.name}</h1>
+            <p>{user.email}</p>
           </div>
-
         </section>
 
-
-        {/* ================= STATISTICS ================= */}
-
-        <section className="profile-statistics">
-
-          <div className="profile-stat-card">
-
-            <div className="profile-stat-icon">
-              📝
-            </div>
-
-            <div className="profile-stat-number">
-              {progressLoading
-                ? '...'
-                : questionsAnswered}
-            </div>
-
-            <div className="profile-stat-title">
-              Questions
-            </div>
-
-          </div>
-
-
-          <div className="profile-stat-card">
-
-            <div className="profile-stat-icon">
-              ✅
-            </div>
-
-            <div className="profile-stat-number">
-              {progressLoading
-                ? '...'
-                : correctAnswers}
-            </div>
-
-            <div className="profile-stat-title">
-              Correct
-            </div>
-
-          </div>
-
-
-          <div className="profile-stat-card">
-
-            <div className="profile-stat-icon">
-              🎯
-            </div>
-
-            <div className="profile-stat-number">
-              {progressLoading
-                ? '...'
-                : `${accuracy}%`}
-            </div>
-
-            <div className="profile-stat-title">
-              Accuracy
-            </div>
-
-          </div>
-
-        </section>
-
-
-        {/* ================= CONTENT GRID ================= */}
-
-        <section className="profile-content-grid">
-
-          {/* ================= ACHIEVEMENTS ================= */}
-
-          <div className="profile-section-card">
-
-            <div className="profile-section-title">
-
-              <div>
-
-                <span className="section-icon">
-                  🏆
-                </span>
-
-                <h3>
-                  Achievements
-                </h3>
-
-              </div>
-
-            </div>
-
-
-            <div className="achievement-list">
-
-              {/* FIRST STEP */}
-
-              <div
-                className={`achievement-item ${
-                  questionsAnswered >= 1
-                    ? 'unlocked'
-                    : ''
-                }`}
-              >
-
-                <div className="achievement-icon">
-                  🌟
-                </div>
-
-                <div>
-
-                  <h4>
-                    First Step
-                  </h4>
-
-                  <p>
-                    Answer your first question
-                  </p>
-
-                </div>
-
-                {questionsAnswered >= 1 && (
-                  <span className="achievement-check">
-                    ✓
-                  </span>
-                )}
-
-              </div>
-
-
-              {/* PRACTICE STARTER */}
-
-              <div
-                className={`achievement-item ${
-                  questionsAnswered >= 5
-                    ? 'unlocked'
-                    : ''
-                }`}
-              >
-
-                <div className="achievement-icon">
-                  📚
-                </div>
-
-                <div>
-
-                  <h4>
-                    Practice Starter
-                  </h4>
-
-                  <p>
-                    Answer 5 questions
-                  </p>
-
-                </div>
-
-                {questionsAnswered >= 5 && (
-                  <span className="achievement-check">
-                    ✓
-                  </span>
-                )}
-
-              </div>
-
-
-              {/* PRACTICE HERO */}
-
-              <div
-                className={`achievement-item ${
-                  questionsAnswered >= 10
-                    ? 'unlocked'
-                    : ''
-                }`}
-              >
-
-                <div className="achievement-icon">
-                  🔥
-                </div>
-
-                <div>
-
-                  <h4>
-                    Practice Hero
-                  </h4>
-
-                  <p>
-                    Answer 10 questions
-                  </p>
-
-                </div>
-
-                {questionsAnswered >= 10 && (
-                  <span className="achievement-check">
-                    ✓
-                  </span>
-                )}
-
-              </div>
-
-
-              {/* MATH STAR */}
-
-              <div
-                className={`achievement-item ${
-                  accuracy >= 90 &&
-                  questionsAnswered >= 5
-                    ? 'unlocked'
-                    : ''
-                }`}
-              >
-
-                <div className="achievement-icon">
-                  🏅
-                </div>
-
-                <div>
-
-                  <h4>
-                    Math Star
-                  </h4>
-
-                  <p>
-                    Reach 90% accuracy
-                  </p>
-
-                </div>
-
-                {accuracy >= 90 &&
-                  questionsAnswered >= 5 && (
-                    <span className="achievement-check">
-                      ✓
-                    </span>
-                  )}
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          {/* ================= QUICK ACTIONS ================= */}
-
-          <div className="profile-section-card">
-
-            <div className="profile-section-title">
-
-              <div>
-
-                <span className="section-icon">
-                  ⚡
-                </span>
-
-                <h3>
-                  Quick Actions
-                </h3>
-
-              </div>
-
-            </div>
-
-
-            <div className="quick-actions">
-
-              <Link
-                to="/practice"
-                className="quick-action"
-              >
-
-                <div className="quick-action-icon">
-                  🧮
-                </div>
-
-                <div>
-
-                  <h4>
-                    Practice Math
-                  </h4>
-
-                  <p>
-                    Test your skills
-                  </p>
-
-                </div>
-
-                <span>
-                  →
-                </span>
-
-              </Link>
-
-
-              <Link
-                to="/score"
-                className="quick-action"
-              >
-
-                <div className="quick-action-icon">
-                  📊
-                </div>
-
-                <div>
-
-                  <h4>
-                    View Progress
-                  </h4>
-
-                  <p>
-                    Check your results
-                  </p>
-
-                </div>
-
-                <span>
-                  →
-                </span>
-
-              </Link>
-
-
-              <Link
-                to="/dashboard"
-                className="quick-action"
-              >
-
-                <div className="quick-action-icon">
-                  🏠
-                </div>
-
-                <div>
-
-                  <h4>
-                    Dashboard
-                  </h4>
-
-                  <p>
-                    Return home
-                  </p>
-
-                </div>
-
-                <span>
-                  →
-                </span>
-
-              </Link>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        {/* ================= EDIT PROFILE ================= */}
-
-        <section className="edit-profile-card">
-
-          <div className="edit-profile-header">
-
+        <section className="profile-stats">
+          <article className="profile-stat-card">
+            <span className="profile-stat-icon">📘</span>
             <div>
+              <p>Questions Answered</p>
+              <strong>
+                {loading ? '…' : stats.questionsAnswered}
+              </strong>
+            </div>
+          </article>
 
-              <p className="edit-small">
-                Account settings
-              </p>
+          <article className="profile-stat-card">
+            <span className="profile-stat-icon">✓</span>
+            <div>
+              <p>Correct Answers</p>
+              <strong>
+                {loading ? '…' : stats.correctAnswers}
+              </strong>
+            </div>
+          </article>
 
-              <h3>
-                Edit Profile
-              </h3>
+          <article className="profile-stat-card">
+            <span className="profile-stat-icon">📈</span>
+            <div>
+              <p>Accuracy</p>
+              <strong>
+                {loading ? '…' : `${stats.accuracy}%`}
+              </strong>
+            </div>
+          </article>
+        </section>
 
+        <section className="profile-content">
+          <div className="profile-card">
+            <div className="profile-section-heading">
+              <h2>Learning Profile</h2>
               <p>
-                Update your personal information.
+                Your learning information and personal details.
               </p>
-
             </div>
 
-            <div className="edit-icon">
-              ✏️
+            <div className="profile-detail">
+              <span>Grade Level</span>
+              <strong>
+                {formData.gradeLevel || 'Not set yet'}
+              </strong>
             </div>
 
+            <div className="profile-detail">
+              <span>Learning Goal</span>
+              <strong>
+                {formData.learningGoal || 'Not set yet'}
+              </strong>
+            </div>
+
+            <div className="profile-detail">
+              <span>Email Address</span>
+              <strong>{user.email}</strong>
+            </div>
+
+            <div className="profile-detail">
+              <span>About Me</span>
+              <p>{formData.bio || 'No biography added yet.'}</p>
+            </div>
           </div>
 
+          <div className="profile-card">
+            <div className="profile-section-heading">
+              <h2>Edit Profile</h2>
+              <p>Update your personal learning information.</p>
+            </div>
 
-          <form onSubmit={handleSave}>
-
-            <div className="form-row">
-
-              <div className="form-group">
-
-                <label htmlFor="name">
-                  Full Name
-                </label>
-
+            <form onSubmit={handleSubmit}>
+              <div className="profile-form-group">
+                <label htmlFor="name">Full Name</label>
                 <input
                   id="name"
                   type="text"
                   name="name"
-                  value={user.name}
+                  value={formData.name}
                   onChange={handleChange}
-                  placeholder="Enter your name"
+                  autoComplete="name"
+                  maxLength={100}
                   required
                 />
-
               </div>
 
-
-              <div className="form-group">
-
-                <label htmlFor="email">
-                  Email Address
-                </label>
-
+              <div className="profile-form-group">
+                <label htmlFor="email">Email Address</label>
                 <input
                   id="email"
                   type="email"
                   name="email"
-                  value={user.email}
-                  onChange={handleChange}
-                  placeholder="Enter your email"
-                  required
+                  value={formData.email}
+                  disabled
+                  autoComplete="email"
                 />
-
               </div>
 
-            </div>
-
-
-            <button
-              type="submit"
-              className="save-button"
-              disabled={saving}
-            >
-              {saving
-                ? 'Saving...'
-                : 'Save Changes'}
-            </button>
-
-
-            {saved && (
-              <div className="success-message">
-                ✓ Your profile has been saved successfully.
+              <div className="profile-form-group">
+                <label htmlFor="gradeLevel">Grade Level</label>
+                <select
+                  id="gradeLevel"
+                  name="gradeLevel"
+                  value={formData.gradeLevel}
+                  onChange={handleChange}
+                >
+                  <option value="">Select your level</option>
+                  <option value="Elementary">Elementary</option>
+                  <option value="Middle School">Middle School</option>
+                  <option value="High School">High School</option>
+                  <option value="College">College</option>
+                  <option value="Adult">Adult</option>
+                </select>
               </div>
-            )}
 
-
-            {error && (
-              <div className="error-message">
-                ✕ {error}
+              <div className="profile-form-group">
+                <label htmlFor="learningGoal">Learning Goal</label>
+                <select
+                  id="learningGoal"
+                  name="learningGoal"
+                  value={formData.learningGoal}
+                  onChange={handleChange}
+                >
+                  <option value="">Select your goal</option>
+                  <option value="Improve my grades">
+                    Improve my grades
+                  </option>
+                  <option value="Prepare for exams">
+                    Prepare for exams
+                  </option>
+                  <option value="Build strong foundations">
+                    Build strong foundations
+                  </option>
+                  <option value="Practice regularly">
+                    Practice regularly
+                  </option>
+                  <option value="Learn advanced mathematics">
+                    Learn advanced mathematics
+                  </option>
+                </select>
               </div>
-            )}
 
-          </form>
+              <div className="profile-form-group">
+                <label htmlFor="bio">About Me</label>
+                <textarea
+                  id="bio"
+                  name="bio"
+                  value={formData.bio}
+                  onChange={handleChange}
+                  rows={4}
+                  maxLength={1000}
+                  placeholder="Tell us a little about your learning goals..."
+                />
+              </div>
 
+              {error && (
+                <div className="profile-error" role="alert">
+                  {error}
+                </div>
+              )}
+
+              {success && (
+                <div className="profile-success" role="status">
+                  {success}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                className="profile-save-button"
+                disabled={saving}
+              >
+                {saving ? 'Saving...' : 'Save Changes'}
+              </button>
+            </form>
+          </div>
         </section>
-
-
-        {/* ================= BACK ================= */}
-
-        <Link
-          to="/dashboard"
-          className="back-link"
-        >
-          ← Back to Dashboard
-        </Link>
-
-      </main>
-
-    </div>
+      </div>
+    </main>
   );
 };
 

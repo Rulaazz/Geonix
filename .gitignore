@@ -1,1 +1,23 @@
-node_modules
+# Dependencies
+node_modules/
+
+# Environment variables and secrets
+.env
+.env.*
+**/.env
+**/.env.*
+
+# Local backups
+*.backup
+*.backup*
+*.save
+
+# Build output
+build/
+dist/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store

@@ -1,21 +1,54 @@
+
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
+
 import { useUser } from '../UserContext/UserContext';
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({
+  children,
+  allowedRoles,
+}) => {
   const { user, loading } = useUser();
+  const location = useLocation();
 
-  // Wait until UserContext finishes checking localStorage
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        className="protected-route-loading"
+        role="status"
+      >
+        Loading your Geonix account...
+      </div>
+    );
   }
 
-  // User is not logged in
   if (!user) {
-    return <Navigate to="/login" replace />;
+    return (
+      <Navigate
+        to="/login"
+        replace
+        state={{ from: location }}
+      />
+    );
   }
 
-  // User is logged in
+  if (
+    allowedRoles &&
+    !allowedRoles.includes(user.role)
+  ) {
+    const destination =
+      user.role === 'instructor'
+        ? '/instructor-dashboard'
+        : '/dashboard';
+
+    return (
+      <Navigate
+        to={destination}
+        replace
+      />
+    );
+  }
+
   return children;
 };
 

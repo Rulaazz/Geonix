@@ -1,0 +1,597 @@
+
+/* =========================
+   PAGE
+========================= */
+
+.lesson-details-page {
+  min-height: 100vh;
+
+  background: #f5f7fb;
+
+  color: #1f2937;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.lesson-details-header {
+  height: 72px;
+
+  background: white;
+
+  border-bottom:
+    1px solid #e5e7eb;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 0 50px;
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 100;
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
+.lesson-details-logo a {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  text-decoration: none;
+
+  color: #111827;
+}
+
+.logo-icon {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: #2563eb;
+
+  color: white;
+
+  border-radius: 10px;
+
+  font-size: 21px;
+
+  font-weight: 700;
+}
+
+.logo-text {
+  font-size: 21px;
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.lesson-details-header nav {
+  display: flex;
+
+  align-items: center;
+
+  gap: 28px;
+}
+
+.lesson-details-header nav a {
+  text-decoration: none;
+
+  color: #6b7280;
+
+  font-size: 15px;
+
+  font-weight: 500;
+
+  transition: 0.2s ease;
+}
+
+.lesson-details-header nav a:hover {
+  color: #2563eb;
+}
+
+.lesson-details-header nav a.active {
+  color: #2563eb;
+
+  font-weight: 700;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.lesson-details-content {
+  max-width: 1150px;
+
+  margin: 0 auto;
+
+  padding: 40px 30px 80px;
+}
+
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.back-to-lessons {
+  display: inline-block;
+
+  margin-bottom: 30px;
+
+  color: #2563eb;
+
+  text-decoration: none;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+.back-to-lessons:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================
+   INTRO
+========================= */
+
+.lesson-details-intro {
+  background: white;
+
+  border-radius: 18px;
+
+  border: 1px solid #e5e7eb;
+
+  padding: 35px;
+
+  margin-bottom: 30px;
+}
+
+.details-category {
+  color: #2563eb;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+}
+
+.lesson-details-intro h1 {
+  margin: 10px 0 15px;
+
+  color: #111827;
+
+  font-size: 38px;
+}
+
+.lesson-details-intro p {
+  max-width: 750px;
+
+  color: #6b7280;
+
+  font-size: 16px;
+
+  line-height: 1.7;
+
+  margin: 0 0 20px;
+}
+
+
+/* =========================
+   META
+========================= */
+
+.details-meta {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 12px;
+}
+
+.details-meta span {
+  background: #f1f5f9;
+
+  color: #475569;
+
+  padding: 9px 13px;
+
+  border-radius: 8px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+
+/* =========================
+   VIDEO
+========================= */
+
+.lesson-video-section {
+  margin-bottom: 40px;
+}
+
+
+/* =========================
+   SCHEDULE
+========================= */
+
+.schedule-section {
+  background: white;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 18px;
+
+  padding: 35px;
+}
+
+.schedule-label {
+  color: #2563eb;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+.schedule-heading h2 {
+  margin: 8px 0;
+
+  color: #111827;
+
+  font-size: 28px;
+}
+
+.schedule-heading p {
+  margin: 0 0 25px;
+
+  color: #6b7280;
+
+  line-height: 1.6;
+}
+
+
+/* =========================
+   AVAILABLE TIMES
+========================= */
+
+.available-times {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 15px;
+}
+
+
+/* =========================
+   TIME CARD
+========================= */
+
+.time-card {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 17px;
+
+  border:
+    1px solid #e5e7eb;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  transition: 0.2s ease;
+}
+
+.time-card:hover {
+  border-color: #93c5fd;
+
+  box-shadow:
+    0 5px 15px
+    rgba(37, 99, 235, 0.08);
+}
+
+
+/* =========================
+   TIME ICON
+========================= */
+
+.time-icon {
+  width: 42px;
+
+  height: 42px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: #eff6ff;
+
+  border-radius: 10px;
+
+  font-size: 18px;
+}
+
+
+/* =========================
+   TIME INFORMATION
+========================= */
+
+.time-information {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+
+  flex: 1;
+}
+
+.time-information strong {
+  color: #111827;
+
+  font-size: 14px;
+}
+
+.time-information span {
+  color: #16a34a;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+
+/* =========================
+   SELECT BUTTON
+========================= */
+
+.book-time-button {
+  border: none;
+
+  background: #2563eb;
+
+  color: white;
+
+  padding: 9px 13px;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.book-time-button:hover {
+  background: #1d4ed8;
+}
+
+
+/* =========================
+   PAYMENT PREVIEW
+========================= */
+
+.payment-preview {
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  margin-top: 25px;
+
+  padding: 20px;
+
+  background: #f8fafc;
+
+  border-radius: 12px;
+
+  border:
+    1px solid #e2e8f0;
+}
+
+.payment-icon {
+  width: 45px;
+
+  height: 45px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: #dbeafe;
+
+  border-radius: 10px;
+
+  font-size: 20px;
+}
+
+.payment-preview h3 {
+  margin: 0 0 5px;
+
+  color: #111827;
+
+  font-size: 16px;
+}
+
+.payment-preview p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================
+   NOT FOUND
+========================= */
+
+.lesson-not-found {
+  min-height: 100vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  background: #f5f7fb;
+}
+
+.lesson-not-found h1 {
+  color: #111827;
+}
+
+.lesson-not-found p {
+  color: #6b7280;
+}
+
+.lesson-not-found a {
+  margin-top: 10px;
+
+  color: #2563eb;
+
+  text-decoration: none;
+
+  font-weight: 600;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1000px) {
+
+  .lesson-details-header {
+    padding: 0 25px;
+  }
+
+  .lesson-details-header nav {
+    gap: 15px;
+  }
+
+  .available-times {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .lesson-details-header {
+    height: auto;
+
+    padding: 18px 20px;
+
+    flex-direction: column;
+
+    gap: 15px;
+  }
+
+  .lesson-details-header nav {
+    width: 100%;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+  }
+
+  .lesson-details-content {
+    padding: 30px 20px 60px;
+  }
+
+  .lesson-details-intro {
+    padding: 25px;
+  }
+
+  .lesson-details-intro h1 {
+    font-size: 30px;
+  }
+
+  .schedule-section {
+    padding: 25px;
+  }
+
+  .available-times {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .lesson-details-intro h1 {
+    font-size: 26px;
+  }
+
+  .details-meta {
+    flex-direction: column;
+  }
+
+  .payment-preview {
+    align-items: flex-start;
+  }
+
+}

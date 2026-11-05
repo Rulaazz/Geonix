@@ -1,63 +1,117 @@
+
 const express = require('express');
 const router = express.Router();
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 
 const User = require('../models/User');
 const authMiddleware = require('../middleware/authMiddleware');
 
-const dotenv = require('dotenv');
 dotenv.config();
 
+/* =========================
+   USER RESPONSE HELPER
+========================= */
 
-// =========================
-// SIGN UP
-// =========================
+const formatUser = (user) => ({
+  id: String(user._id),
+  name: user.name,
+  email: user.email,
+  role: user.role || 'student',
+  avatar: user.avatar || '',
+  gradeLevel: user.gradeLevel || '',
+  learningGoal: user.learningGoal || '',
+  bio: user.bio || '',
+});
+
+/* =========================
+   SIGN UP
+========================= */
 
 router.post('/signup', async (req, res) => {
-  const { name, email, password } = req.body;
-
   try {
-    const exists = await User.findOne({ email });
+    const { name, email, password } = req.body;
 
-    if (exists) {
+    if (
+      typeof name !== 'string' ||
+      !name.trim() ||
+      typeof email !== 'string' ||
+      !email.trim() ||
+      typeof password !== 'string' ||
+      !password
+    ) {
       return res.status(400).json({
+        message: 'Name, email and password are required.',
+      });
+    }
+
+    const normalizedEmail = email.trim().toLowerCase();
+
+    const existingUser = await User.findOne({
+      email: normalizedEmail,
+    });
+
+    if (existingUser) {
+      return res.status(409).json({
         message: 'Email already used.',
       });
     }
 
-    const hashed = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
-      name,
-      email,
-      password: hashed,
+      name: name.trim(),
+      email: normalizedEmail,
+      password: hashedPassword,
     });
 
-    res.status(201).json({
+    return res.status(201).json({
       message: 'User created.',
+      user: formatUser(user),
     });
+  } catch (error) {
+    if (error.code === 11000) {
+      return res.status(409).json({
+        message: 'Email already used.',
+      });
+    }
 
-  } catch (err) {
-    console.error('SIGNUP ERROR:', err);
+    console.error('SIGNUP ERROR:', error);
 
-    res.status(500).json({
-      message: err.message,
+    return res.status(500).json({
+      message: 'Could not create user.',
     });
   }
 });
 
-
-// =========================
-// LOGIN
-// =========================
+/* =========================
+   LOGIN
+========================= */
 
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-
   try {
-    const user = await User.findOne({ email });
+    const { email, password } = req.body;
+
+    if (
+      typeof email !== 'string' ||
+      !email.trim() ||
+      typeof password !== 'string' ||
+      !password
+    ) {
+      return res.status(400).json({
+        message: 'Email and password are required.',
+      });
+    }
+
+    const normalizedEmail = email.trim().toLowerCase();
+
+    // Password is excluded by default in User.js,
+    // so explicitly select it for password verification.
+    const user = await User.findOne({
+      email: normalizedEmail,
+    }).select('+password');
 
     if (!user) {
       return res.status(400).json({
@@ -65,20 +119,28 @@ router.post('/login', async (req, res) => {
       });
     }
 
-    const match = await bcrypt.compare(
+    const passwordMatches = await bcrypt.compare(
       password,
       user.password
     );
 
-    if (!match) {
+    if (!passwordMatches) {
       return res.status(400).json({
         message: 'Invalid email or password.',
       });
     }
 
+    if (!process.env.JWT_SECRET) {
+      console.error('JWT_SECRET is missing from environment.');
+
+      return res.status(500).json({
+        message: 'Authentication is not configured correctly.',
+      });
+    }
+
     const token = jwt.sign(
       {
-        id: user._id,
+        id: String(user._id),
       },
       process.env.JWT_SECRET,
       {
@@ -86,29 +148,27 @@ router.post('/login', async (req, res) => {
       }
     );
 
-    res.json({
+    return res.json({
+      message: 'Login successful.',
       token,
+      user: formatUser(user),
     });
+  } catch (error) {
+    console.error('LOGIN ERROR:', error);
 
-  } catch (err) {
-    console.error('LOGIN ERROR:', err);
-
-    res.status(500).json({
+    return res.status(500).json({
       message: 'Login error.',
     });
   }
 });
 
-
-// =========================
-// GET CURRENT USER
-// =========================
+/* =========================
+   GET CURRENT USER
+========================= */
 
 router.get('/me', authMiddleware, async (req, res) => {
   try {
-    const user = await User
-      .findById(req.userId)
-      .select('-password');
+    const user = await User.findById(req.userId);
 
     if (!user) {
       return res.status(404).json({
@@ -116,63 +176,68 @@ router.get('/me', authMiddleware, async (req, res) => {
       });
     }
 
-    res.json({
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-      },
+    return res.json({
+      user: formatUser(user),
     });
-
   } catch (error) {
     console.error('GET USER ERROR:', error);
 
-    res.status(500).json({
+    return res.status(500).json({
       message: 'Could not get user information.',
     });
   }
 });
 
-
-// =========================
-// UPDATE PROFILE
-// =========================
+/* =========================
+   UPDATE PROFILE
+========================= */
 
 router.put('/me', authMiddleware, async (req, res) => {
   try {
-    const { name, email } = req.body;
+    const {
+      name,
+      gradeLevel,
+      learningGoal,
+      bio,
+    } = req.body;
 
-    // Check required fields
-    if (!name || !email) {
+    if (typeof name !== 'string' || !name.trim()) {
       return res.status(400).json({
-        message: 'Name and email are required.',
+        message: 'Name is required.',
       });
     }
 
-    // Check if another user already uses this email
-    const existingUser = await User.findOne({
-      email,
-      _id: { $ne: req.userId },
-    });
-
-    if (existingUser) {
+    if (
+      gradeLevel !== undefined &&
+      typeof gradeLevel !== 'string'
+    ) {
       return res.status(400).json({
-        message: 'Email is already used by another account.',
+        message: 'Grade level must be a string.',
       });
     }
 
-    // Update user
-    const user = await User.findByIdAndUpdate(
-      req.userId,
-      {
-        name,
-        email,
-      },
-      {
-        new: true,
-        runValidators: true,
-      }
-    ).select('-password');
+    if (
+      learningGoal !== undefined &&
+      typeof learningGoal !== 'string'
+    ) {
+      return res.status(400).json({
+        message: 'Learning goal must be a string.',
+      });
+    }
+
+    if (bio !== undefined && typeof bio !== 'string') {
+      return res.status(400).json({
+        message: 'Bio must be a string.',
+      });
+    }
+
+    if (typeof bio === 'string' && bio.length > 1000) {
+      return res.status(400).json({
+        message: 'Bio cannot exceed 1000 characters.',
+      });
+    }
+
+    const user = await User.findById(req.userId);
 
     if (!user) {
       return res.status(404).json({
@@ -180,23 +245,33 @@ router.put('/me', authMiddleware, async (req, res) => {
       });
     }
 
-    res.json({
-      message: 'Profile updated successfully.',
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-      },
-    });
+    user.name = name.trim();
 
+    if (gradeLevel !== undefined) {
+      user.gradeLevel = gradeLevel.trim();
+    }
+
+    if (learningGoal !== undefined) {
+      user.learningGoal = learningGoal.trim();
+    }
+
+    if (bio !== undefined) {
+      user.bio = bio.trim();
+    }
+
+    await user.save();
+
+    return res.json({
+      message: 'Profile updated successfully.',
+      user: formatUser(user),
+    });
   } catch (error) {
     console.error('UPDATE PROFILE ERROR:', error);
 
-    res.status(500).json({
+    return res.status(500).json({
       message: 'Could not update profile.',
     });
   }
 });
-
 
 module.exports = router;

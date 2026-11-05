@@ -1,28 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../../components/Header/Header';
-import logo from './GeonixIcon.png';
-import './Home.css';
 import { useUser } from '../../components/UserContext/UserContext';
+import './Home.css';
 
 function Home() {
   const { user, loading } = useUser();
 
+  const primaryLink = loading
+    ? '/login'
+    : user
+    ? '/video-lessons'
+    : '/signup';
+
+  const primaryText = loading
+    ? 'Loading...'
+    : user
+    ? 'Start Learning'
+    : 'Create Free Account';
+
   return (
     <div className="home">
-
-      <Header />
-
       <main className="home-main">
-
-        {/* HERO */}
-
         <section className="home-hero">
-
           <div className="hero-content">
-
             <p className="hero-small">
-              🧠 Learn • Practice • Improve
+              <span className="hero-status-dot" />
+              LEARN • PRACTICE • IMPROVE
             </p>
 
             <h1>
@@ -31,367 +34,274 @@ function Home() {
             </h1>
 
             <p className="hero-description">
-              Geonix helps you practice math, improve your
-              skills, and track your progress one question
-              at a time.
+              Build confidence in mathematics with step-by-step
+              video lessons, interactive practice, and personalized
+              learning support.
             </p>
 
             <div className="hero-buttons">
-
-              {!loading && user ? (
-                <Link
-                  to="/dashboard"
-                  className="hero-primary-button"
-                >
-                  Go to Dashboard →
-                </Link>
-              ) : (
-                <Link
-                  to="/signup"
-                  className="hero-primary-button"
-                >
-                  Start Learning →
-                </Link>
-              )}
+              <Link
+                to={primaryLink}
+                className="hero-primary-button"
+                aria-disabled={loading}
+                onClick={(event) => {
+                  if (loading) event.preventDefault();
+                }}
+              >
+                {primaryText} <span>→</span>
+              </Link>
 
               <Link
-                to="/practice"
+                to={user ? '/instructors' : '/login'}
                 className="hero-secondary-button"
               >
-                Try Practice
+                Book a Lesson
               </Link>
-
             </div>
 
+            <div className="hero-trust">
+              <span>✓</span>
+              Learn at your own pace
+              <span className="trust-separator">·</span>
+              <span>✓</span>
+              Track your progress
+            </div>
           </div>
-
-
-          {/* LOGO */}
 
           <div className="hero-logo-container">
+            <div className="hero-glow" />
+            <div className="hero-orbit hero-orbit-one" />
+            <div className="hero-orbit hero-orbit-two" />
 
-            <div className="hero-glow"></div>
+            <div className="hero-logo-card">
+              <img
+                src="/GeonixIcon.png"
+                className="App-logo"
+                alt="Geonix Math Learning"
+              />
+              <div className="hero-logo-caption">
+                <span className="hero-caption-icon">✦</span>
+                Your journey to better math starts here
+              </div>
+            </div>
 
-            <img
-              src={logo}
-              className="App-logo"
-              alt="Geonix logo"
-            />
-
+            <div className="floating-math floating-math-one">x²</div>
+            <div className="floating-math floating-math-two">÷</div>
+            <div className="floating-math floating-math-three">π</div>
           </div>
-
         </section>
 
-
-        {/* FEATURES */}
-
-        <section className="home-features">
-
+        <section className="home-features" id="learning-options">
           <div className="section-heading">
-
-            <p>
-              WHY GEONIX?
-            </p>
-
-            <h2>
-              Everything you need to improve
-            </h2>
-
+            <p>YOUR LEARNING SPACE</p>
+            <h2>Everything you need to grow</h2>
             <span>
-              Practice at your own pace and see your
-              progress grow over time.
+              Choose how you want to learn and take the next step
+              toward understanding math.
             </span>
-
           </div>
-
 
           <div className="features-grid">
-
-            <div className="feature-card">
-
-              <div className="feature-icon practice-feature">
-                🧮
+            <article className="feature-card video-feature-card">
+              <div className="feature-topline">
+                <div className="feature-icon video-feature">▶</div>
+                <span className="feature-tag">LEARN</span>
               </div>
 
-              <h3>
-                Smart Practice
-              </h3>
-
+              <h3>Math Video Lessons</h3>
               <p>
-                Choose different math topics and
-                difficulty levels to challenge yourself.
+                Watch step-by-step lessons, review important
+                concepts, and learn at a pace that works for you.
               </p>
 
-              <Link to="/practice">
-                Practice now →
+              <Link to={user ? '/video-lessons' : '/signup'}>
+                Explore Video Lessons <span>→</span>
               </Link>
+            </article>
 
-            </div>
-
-
-            <div className="feature-card">
-
-              <div className="feature-icon progress-feature">
-                📊
+            <article className="feature-card">
+              <div className="feature-topline">
+                <div className="feature-icon practice-feature">∑</div>
+                <span className="feature-tag">PRACTICE</span>
               </div>
 
-              <h3>
-                Track Progress
-              </h3>
-
+              <h3>Interactive Practice</h3>
               <p>
-                See your accuracy, answered questions,
-                and progress across different topics.
+                Practice different topics and challenge yourself
+                with questions at different difficulty levels.
               </p>
 
-              <Link
-                to={user ? '/score' : '/signup'}
-              >
-                {user
-                  ? 'View progress →'
-                  : 'Start tracking →'}
+              <Link to={user ? '/practice' : '/signup'}>
+                Start Practicing <span>→</span>
               </Link>
+            </article>
 
-            </div>
-
-
-            <div className="feature-card">
-
-              <div className="feature-icon achievement-feature">
-                🏆
+            <article className="feature-card">
+              <div className="feature-topline">
+                <div className="feature-icon progress-feature">↗</div>
+                <span className="feature-tag">PROGRESS</span>
               </div>
 
-              <h3>
-                Achievements
-              </h3>
-
+              <h3>Track Your Progress</h3>
               <p>
-                Keep practicing and unlock achievements
-                as you reach new milestones.
+                Review your results, monitor your accuracy, and
+                discover the topics you can improve.
               </p>
 
-              <Link
-                to={user ? '/profile' : '/signup'}
-              >
-                {user
-                  ? 'View achievements →'
-                  : 'Get started →'}
+              <Link to={user ? '/score' : '/signup'}>
+                View My Progress <span>→</span>
               </Link>
+            </article>
 
-            </div>
+            <article className="feature-card">
+              <div className="feature-topline">
+                <div className="feature-icon instructor-feature">✦</div>
+                <span className="feature-tag">PERSONAL SUPPORT</span>
+              </div>
 
+              <h3>Learn with an Instructor</h3>
+              <p>
+                Explore available instructors and find support
+                for your individual learning goals.
+              </p>
+
+              <Link to={user ? '/instructors' : '/signup'}>
+                Find an Instructor <span>→</span>
+              </Link>
+            </article>
           </div>
-
         </section>
-
-
-        {/* HOW IT WORKS */}
 
         <section className="how-section">
-
           <div className="section-heading">
-
-            <p>
-              HOW IT WORKS
-            </p>
-
-            <h2>
-              Start learning in three simple steps
-            </h2>
-
+            <p>A SIMPLE APPROACH</p>
+            <h2>Your learning journey, made easier</h2>
+            <span>
+              Build a learning routine that works for you.
+            </span>
           </div>
-
 
           <div className="steps-grid">
-
-            <div className="step-card">
-
-              <div className="step-number">
-                01
-              </div>
-
-              <div className="step-icon">
-                🎯
-              </div>
-
-              <h3>
-                Choose a topic
-              </h3>
-
+            <article className="step-card">
+              <div className="step-number">01</div>
+              <div className="step-icon">🎯</div>
+              <h3>Choose a topic</h3>
               <p>
-                Pick the math category you want
-                to practice.
+                Start with a math topic or lesson you want to
+                understand better.
               </p>
+            </article>
 
-            </div>
-
-
-            <div className="step-card">
-
-              <div className="step-number">
-                02
-              </div>
-
-              <div className="step-icon">
-                ✏️
-              </div>
-
-              <h3>
-                Solve questions
-              </h3>
-
+            <article className="step-card">
+              <div className="step-number">02</div>
+              <div className="step-icon">✏️</div>
+              <h3>Learn and practice</h3>
               <p>
-                Answer questions and challenge
-                yourself at different levels.
+                Watch lessons, solve questions, and reinforce
+                what you have learned.
               </p>
+            </article>
 
-            </div>
-
-
-            <div className="step-card">
-
-              <div className="step-number">
-                03
-              </div>
-
-              <div className="step-icon">
-                📈
-              </div>
-
-              <h3>
-                Watch your progress
-              </h3>
-
+            <article className="step-card">
+              <div className="step-number">03</div>
+              <div className="step-icon">📈</div>
+              <h3>Review your progress</h3>
               <p>
-                Track your results and discover
-                where you can improve.
+                Check your results and decide what to learn next.
               </p>
-
-            </div>
-
+            </article>
           </div>
-
         </section>
 
-
-        {/* TOPICS */}
-
         <section className="topics-section">
-
           <div className="topics-content">
-
-            <p className="topics-small">
-              EXPLORE MATH
-            </p>
-
-            <h2>
-              Practice different math skills
-            </h2>
-
+            <p className="topics-small">EXPLORE MATH</p>
+            <h2>One platform. Different math skills.</h2>
             <p>
-              From basic calculations to algebra and
-              geometry, Geonix gives you different ways
-              to strengthen your math skills.
+              From everyday calculations to algebra and geometry,
+              discover topics you can work on one step at a time.
             </p>
 
             <Link
-              to="/practice"
+              to={user ? '/practice' : '/signup'}
               className="topics-button"
             >
-              Explore Practice →
+              Explore Math Practice →
             </Link>
-
           </div>
 
-
           <div className="topics-grid">
-
             <div className="topic-item">
               <span>➕</span>
               <strong>Addition</strong>
             </div>
-
             <div className="topic-item">
               <span>✖️</span>
               <strong>Multiplication</strong>
             </div>
-
             <div className="topic-item">
               <span>🔢</span>
               <strong>Fractions</strong>
             </div>
-
             <div className="topic-item">
               <span>📐</span>
               <strong>Algebra</strong>
             </div>
-
             <div className="topic-item">
               <span>📏</span>
               <strong>Geometry</strong>
             </div>
-
           </div>
-
         </section>
 
-
-        {/* FINAL CTA */}
-
         <section className="home-cta">
+          <div className="cta-icon">🚀</div>
 
-          <div className="cta-icon">
-            🚀
-          </div>
+          <p className="cta-eyebrow">
+            YOUR NEXT STEP STARTS HERE
+          </p>
 
           <h2>
             {user
-              ? 'Ready for more practice?'
-              : 'Ready to improve your math skills?'}
+              ? 'Ready to keep learning?'
+              : 'Make your next math milestone count.'}
           </h2>
 
           <p>
             {user
-              ? 'Continue practicing and keep building your Geonix progress.'
-              : 'Create your Geonix account and start practicing today.'}
+              ? 'Continue with video lessons, practice, or personal tutoring.'
+              : 'Join Geonix and build your math skills one lesson at a time.'}
           </p>
 
-          <Link
-            to={user ? '/dashboard' : '/signup'}
-            className="cta-button"
-          >
-            {user
-              ? 'Go to Dashboard →'
-              : 'Create Your Account →'}
-          </Link>
+          <div className="cta-buttons">
+            <Link
+              to={user ? '/video-lessons' : '/signup'}
+              className="cta-button"
+            >
+              {user ? 'Start Learning →' : 'Get Started →'}
+            </Link>
 
+            <Link
+              to={user ? '/instructors' : '/login'}
+              className="cta-secondary-button"
+            >
+              {user ? 'Book a Lesson' : 'Already a Member? Log In'}
+            </Link>
+          </div>
         </section>
-
       </main>
 
-
-      {/* FOOTER */}
-
       <footer className="home-footer">
-
-        <div>
-
-          <strong>
-            Geonix
-          </strong>
-
-          <span>
-            Learn. Practice. Improve.
-          </span>
-
+        <div className="footer-brand">
+          <img src="/GeonixIcon.png" alt="" />
+          <div>
+            <strong>GEONIX</strong>
+            <span>Learn. Practice. Improve.</span>
+          </div>
         </div>
 
-        <p>
-          © 2026 Geonix. Keep learning! 🧠
-        </p>
-
+        <p>© {new Date().getFullYear()} Geonix. Keep learning!</p>
       </footer>
-
     </div>
   );
 }

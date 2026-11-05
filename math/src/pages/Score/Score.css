@@ -10,100 +10,12 @@
 
 
 /* =========================
-   HEADER
-========================= */
-
-.score-header {
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
-
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.score-nav {
-  max-width: 1150px;
-  margin: 0 auto;
-
-  padding: 18px 30px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-
-/* =========================
-   LOGO
-========================= */
-
-.score-logo {
-  color: #2563eb;
-
-  font-size: 30px;
-  font-weight: 800;
-
-  text-decoration: none;
-
-  letter-spacing: -0.5px;
-
-  transition:
-    color 0.2s ease,
-    transform 0.2s ease;
-}
-
-.score-logo:hover {
-  color: #1d4ed8;
-
-  transform: scale(1.03);
-}
-
-
-/* =========================
-   NAVIGATION
-========================= */
-
-.score-links {
-  display: flex;
-  align-items: center;
-
-  gap: 26px;
-}
-
-.score-links a {
-  color: #64748b;
-
-  text-decoration: none;
-
-  font-size: 15px;
-  font-weight: 600;
-
-  transition:
-    color 0.2s ease,
-    transform 0.2s ease;
-}
-
-.score-links a:hover {
-  color: #2563eb;
-
-  transform: translateY(-1px);
-}
-
-.score-links a.active {
-  color: #2563eb;
-}
-
-
-/* =========================
    MAIN
 ========================= */
 
 .score-main {
   max-width: 850px;
-
   margin: 0 auto;
-
   padding: 55px 30px 70px;
 }
 
@@ -114,35 +26,27 @@
 
 .score-intro {
   text-align: center;
-
   margin-bottom: 30px;
 }
 
 .score-small {
   margin: 0 0 10px;
-
   color: #2563eb;
-
   font-size: 15px;
   font-weight: 700;
 }
 
 .score-intro h1 {
   margin: 0 0 12px;
-
   color: #1e293b;
-
   font-size: 40px;
   font-weight: 800;
-
   letter-spacing: -0.5px;
 }
 
 .score-intro p:last-child {
   margin: 0;
-
   color: #64748b;
-
   font-size: 17px;
   line-height: 1.6;
 }
@@ -160,11 +64,8 @@
   );
 
   border: 1px solid #dbeafe;
-
   border-radius: 24px;
-
   padding: 45px 30px;
-
   text-align: center;
 
   box-shadow:
@@ -183,17 +84,12 @@
   margin: 0 auto 25px;
 
   border-radius: 50%;
-
   background: #dbeafe;
-
   border: 8px solid #bfdbfe;
 
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
-
   justify-content: center;
 
   box-shadow:
@@ -202,18 +98,14 @@
 
 .score-percentage {
   color: #2563eb;
-
   font-size: 42px;
   font-weight: 800;
-
   line-height: 1;
 }
 
 .score-label {
   margin-top: 8px;
-
   color: #64748b;
-
   font-size: 14px;
   font-weight: 600;
 }
@@ -225,297 +117,59 @@
 
 .score-card h2 {
   margin: 0 0 10px;
-
   color: #1e293b;
-
   font-size: 25px;
-
   line-height: 1.4;
 }
 
 .score-description {
   max-width: 520px;
-
   margin: 0 auto;
-
   color: #64748b;
-
   font-size: 15px;
-
   line-height: 1.6;
 }
 
 
 /* =========================
-   STATISTICS
+   OVERALL PROGRESS
 ========================= */
-
-.score-stats {
-  display: grid;
-
-  grid-template-columns: repeat(3, 1fr);
-
-  gap: 20px;
-
-  margin-top: 25px;
-}
-
-.score-stat {
-  background: #ffffff;
-
-  border: 1px solid #e5e7eb;
-
-  border-radius: 20px;
-
-  padding: 25px;
-
-  text-align: center;
-
-  box-shadow:
-    0 6px 20px rgba(0, 0, 0, 0.04);
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
-}
-
-.score-stat:hover {
-  transform: translateY(-4px);
-
-  border-color: #bfdbfe;
-
-  box-shadow:
-    0 12px 28px rgba(37, 99, 235, 0.08);
-}
-
-
-/* Icons */
-
-.score-stat-icon {
-  font-size: 28px;
-
-  margin-bottom: 10px;
-}
-
-
-/* Numbers */
-
-.score-stat-number {
-  color: #1e293b;
-
-  font-size: 32px;
-
-  font-weight: 800;
-
-  margin-bottom: 5px;
-}
-
-
-/* Titles */
-
-.score-stat-title {
-  color: #64748b;
-
-  font-size: 13px;
-
-  font-weight: 600;
-}
-
-
-/* =========================
-   ACTIONS
-========================= */
-
-.score-actions {
-  text-align: center;
-
-  margin-top: 30px;
-}
-
-.practice-again-button {
-  display: inline-flex;
-
-  align-items: center;
-  justify-content: center;
-
-  padding: 14px 24px;
-
-  background: #2563eb;
-
-  color: #ffffff;
-
-  border-radius: 12px;
-
-  text-decoration: none;
-
-  font-size: 15px;
-
-  font-weight: 700;
-
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.practice-again-button:hover {
-  background: #1d4ed8;
-
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 8px 18px rgba(37, 99, 235, 0.25);
-}
-
-
-/* Back link */
-
-.score-back-link {
-  display: block;
-
-  margin-top: 20px;
-
-  color: #2563eb;
-
-  text-decoration: none;
-
-  font-size: 15px;
-
-  font-weight: 700;
-}
-
-.score-back-link:hover {
-  text-decoration: underline;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 800px) {
-
-  .score-nav {
-    flex-direction: column;
-
-    gap: 16px;
-
-    padding: 18px;
-  }
-
-
-  .score-links {
-    gap: 15px;
-
-    flex-wrap: wrap;
-
-    justify-content: center;
-  }
-
-
-  .score-main {
-    padding: 35px 18px 50px;
-  }
-
-
-  .score-intro h1 {
-    font-size: 32px;
-  }
-
-
-  .score-intro p:last-child {
-    font-size: 16px;
-  }
-
-
-  .score-stats {
-    grid-template-columns: 1fr;
-  }
-
-
-  .score-card {
-    padding: 35px 22px;
-  }
-
-
-  .score-card h2 {
-    font-size: 22px;
-  }
-}
-
-
-/* =========================
-   SMALL PHONES
-========================= */
-
-@media (max-width: 450px) {
-
-  .score-links {
-    gap: 12px;
-  }
-
-
-  .score-links a {
-    font-size: 14px;
-  }
-
-
-  .score-intro h1 {
-    font-size: 28px;
-  }
-
-
-  .score-circle {
-    width: 145px;
-    height: 145px;
-
-    border-width: 6px;
-  }
-
-
-  .score-percentage {
-    font-size: 36px;
-  }
-
-
-  .score-stat {
-    padding: 22px;
-  }
-
-
-  .score-stat-number {
-    font-size: 29px;
-  }
-}
-/* OVERALL PROGRESS */
 
 .overall-progress-card {
   display: flex;
   align-items: center;
   gap: 35px;
+
   margin-bottom: 25px;
   padding: 35px;
+
   background: linear-gradient(
     135deg,
     #ffffff 0%,
     #eff6ff 100%
   );
+
   border: 1px solid #dbeafe;
   border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.08);
+
+  box-shadow:
+    0 10px 30px rgba(37, 99, 235, 0.08);
 }
 
 .overall-circle {
   width: 145px;
   height: 145px;
+
   flex-shrink: 0;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   border: 10px solid #dbeafe;
   border-radius: 50%;
+
   background: #ffffff;
 }
 
@@ -560,7 +214,65 @@
   color: #1e293b;
 }
 
-/* CATEGORY PROGRESS */
+
+/* =========================
+   STATISTICS
+========================= */
+
+.score-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.score-stat {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+
+  padding: 25px;
+  text-align: center;
+
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.04);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.score-stat:hover {
+  transform: translateY(-4px);
+  border-color: #bfdbfe;
+
+  box-shadow:
+    0 12px 28px rgba(37, 99, 235, 0.08);
+}
+
+.score-stat-icon {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.score-stat-number {
+  color: #1e293b;
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+
+.score-stat-title {
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* =========================
+   CATEGORY PROGRESS
+========================= */
 
 .category-progress-section {
   margin-top: 45px;
@@ -571,6 +283,7 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 20px;
+
   margin-bottom: 22px;
 }
 
@@ -590,9 +303,12 @@
 
 .category-count {
   padding: 8px 13px;
+
   background: #eff6ff;
   color: #2563eb;
+
   border-radius: 20px;
+
   font-size: 13px;
   font-weight: 700;
 }
@@ -605,10 +321,14 @@
 
 .category-progress-card {
   padding: 25px;
+
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 20px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.04);
+
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -618,7 +338,9 @@
 .category-progress-card:hover {
   transform: translateY(-3px);
   border-color: #bfdbfe;
-  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.08);
+
+  box-shadow:
+    0 12px 28px rgba(37, 99, 235, 0.08);
 }
 
 .category-card-top {
@@ -630,12 +352,16 @@
 .category-icon {
   width: 50px;
   height: 50px;
+
   flex-shrink: 0;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   background: #eff6ff;
   border-radius: 14px;
+
   font-size: 24px;
 }
 
@@ -646,6 +372,7 @@
 
 .category-card-title h3 {
   margin: 0 0 4px;
+
   color: #1e293b;
   font-size: 16px;
   font-weight: 800;
@@ -653,6 +380,7 @@
 
 .category-card-title p {
   margin: 0;
+
   color: #64748b;
   font-size: 13px;
 }
@@ -663,11 +391,19 @@
   font-weight: 800;
 }
 
+
+/* =========================
+   PROGRESS BAR
+========================= */
+
 .progress-bar-background {
   width: 100%;
   height: 9px;
+
   margin: 20px 0 10px;
+
   overflow: hidden;
+
   background: #e5e7eb;
   border-radius: 10px;
 }
@@ -675,8 +411,11 @@
 .progress-bar-fill {
   height: 100%;
   min-width: 0;
+
   border-radius: 10px;
+
   background: #2563eb;
+
   transition: width 0.5s ease;
 }
 
@@ -700,19 +439,29 @@
   background: #16a34a;
 }
 
+
+/* =========================
+   CATEGORY CARD BOTTOM
+========================= */
+
 .category-card-bottom {
   display: flex;
   justify-content: space-between;
   gap: 15px;
+
   color: #64748b;
   font-size: 12px;
 }
 
 .category-practice-link {
   display: inline-block;
+
   margin-top: 18px;
+
   color: #2563eb;
+
   text-decoration: none;
+
   font-size: 13px;
   font-weight: 700;
 }
@@ -721,29 +470,84 @@
   color: #1d4ed8;
 }
 
-/* MOTIVATION */
+
+/* =========================
+   ACTIONS
+========================= */
+
+.score-actions {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.practice-again-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 14px 24px;
+
+  background: #2563eb;
+  color: #ffffff;
+
+  border-radius: 12px;
+
+  text-decoration: none;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.practice-again-button:hover {
+  background: #1d4ed8;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 18px rgba(37, 99, 235, 0.25);
+}
+
+
+/* =========================
+   MOTIVATION
+========================= */
 
 .progress-motivation {
   display: flex;
   align-items: center;
   gap: 20px;
+
   margin-top: 30px;
   padding: 25px 28px;
+
   background: #ffffff;
+
   border: 1px solid #e5e7eb;
   border-radius: 20px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.04);
 }
 
 .motivation-icon {
   width: 52px;
   height: 52px;
+
   flex-shrink: 0;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   background: #dbeafe;
   border-radius: 15px;
+
   font-size: 26px;
 }
 
@@ -753,27 +557,37 @@
 
 .progress-motivation h3 {
   margin: 0 0 5px;
+
   color: #1e293b;
+
   font-size: 18px;
   font-weight: 800;
 }
 
 .progress-motivation p {
   margin: 0;
+
   color: #64748b;
+
   font-size: 14px;
   line-height: 1.5;
 }
 
 .motivation-button {
   flex-shrink: 0;
+
   padding: 11px 17px;
+
   background: #2563eb;
   color: #ffffff;
+
   border-radius: 10px;
+
   text-decoration: none;
+
   font-size: 13px;
   font-weight: 700;
+
   transition:
     background 0.2s ease,
     transform 0.2s ease;
@@ -784,9 +598,59 @@
   transform: translateY(-1px);
 }
 
-/* MOBILE */
+
+/* =========================
+   BACK LINK
+========================= */
+
+.score-back-link {
+  display: block;
+
+  margin-top: 20px;
+
+  color: #2563eb;
+
+  text-decoration: none;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.score-back-link:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 800px) {
+
+  .score-main {
+    padding: 35px 18px 50px;
+  }
+
+  .score-intro h1 {
+    font-size: 32px;
+  }
+
+  .score-intro p:last-child {
+    font-size: 16px;
+  }
+
+  .score-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .score-card {
+    padding: 35px 22px;
+  }
+
+  .score-card h2 {
+    font-size: 22px;
+  }
+
   .overall-progress-card {
     align-items: flex-start;
     padding: 28px;
@@ -806,7 +670,13 @@
   }
 }
 
+
+/* =========================
+   TABLET / SMALL
+========================= */
+
 @media (max-width: 550px) {
+
   .overall-progress-card {
     flex-direction: column;
     text-align: center;
@@ -841,5 +711,49 @@
     width: 100%;
     margin-left: 0;
     text-align: center;
+  }
+}
+
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media (max-width: 450px) {
+
+  .score-intro h1 {
+    font-size: 28px;
+  }
+
+  .score-circle {
+    width: 145px;
+    height: 145px;
+    border-width: 6px;
+  }
+
+  .score-percentage {
+    font-size: 36px;
+  }
+
+  .score-stat {
+    padding: 22px;
+  }
+
+  .score-stat-number {
+    font-size: 29px;
+  }
+
+  .overall-circle {
+    width: 130px;
+    height: 130px;
+    border-width: 8px;
+  }
+
+  .overall-percentage {
+    font-size: 30px;
+  }
+
+  .category-progress-card {
+    padding: 20px;
   }
 }

@@ -1,0 +1,17 @@
+
+{
+  "dashboard": "لوحة التحكم",
+  "bookLesson": "حجز درس",
+  "myLessons": "دروسي",
+  "practice": "التدريب",
+  "videoLessons": "دروس الفيديو",
+  "profile": "الملف الشخصي",
+  "myProgress": "تقدمي",
+  "logout": "تسجيل الخروج",
+  "login": "تسجيل الدخول",
+  "signup": "إنشاء حساب",
+  "welcome": "مرحبًا بكم في Geonix",
+  "learnPracticeImprove": "تعلّم • تدرّب • تطوّر",
+  "makeMathEasier": "اجعل الرياضيات أسهل.",
+  "language": "اللغة"
+}

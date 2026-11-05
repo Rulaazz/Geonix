@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -61,7 +60,6 @@ const Score = () => {
         setCategoryProgress(
           progress.categoryProgress || {}
         );
-
       } catch (error) {
         console.error(
           'GET PROGRESS ERROR:',
@@ -71,7 +69,6 @@ const Score = () => {
         setError(
           'Could not load your progress.'
         );
-
       } finally {
         setLoading(false);
       }
@@ -148,46 +145,6 @@ const Score = () => {
   return (
     <div className="score-page">
 
-      {/* HEADER */}
-      <header className="score-header">
-
-        <div className="score-nav">
-
-          <Link
-            to="/dashboard"
-            className="score-logo"
-          >
-            Geonix
-          </Link>
-
-          <nav className="score-links">
-
-            <Link to="/dashboard">
-              Dashboard
-            </Link>
-
-            <Link to="/practice">
-              Practice
-            </Link>
-
-            <Link
-              to="/score"
-              className="active"
-            >
-              Progress
-            </Link>
-
-            <Link to="/profile">
-              Profile
-            </Link>
-
-          </nav>
-
-        </div>
-
-      </header>
-
-      {/* MAIN */}
       <main className="score-main">
 
         {/* INTRO */}
@@ -328,6 +285,7 @@ const Score = () => {
               <div className="category-progress-header">
 
                 <div>
+
                   <p className="category-small">
                     Topic performance
                   </p>
@@ -335,6 +293,7 @@ const Score = () => {
                   <h2>
                     Progress by Category
                   </h2>
+
                 </div>
 
                 <span className="category-count">

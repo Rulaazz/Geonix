@@ -1,0 +1,855 @@
+/* =========================
+   PAGE
+========================= */
+
+.instructors-page {
+  min-height: 100vh;
+
+  background: #f5f7fb;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  color: #172033;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.instructors-hero {
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(79, 70, 229, 0.2),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #172554,
+      #1e3a8a
+    );
+
+  color: white;
+
+  padding: 72px 6%;
+}
+
+
+.instructors-hero-content {
+  max-width: 850px;
+
+  margin: 0 auto;
+
+  text-align: center;
+}
+
+
+.instructors-eyebrow {
+  display: inline-block;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  letter-spacing: 2px;
+
+  color: #bfdbfe;
+
+  margin-bottom: 15px;
+}
+
+
+.instructors-hero h1 {
+  margin: 0 0 16px;
+
+  font-size: clamp(
+    32px,
+    5vw,
+    52px
+  );
+
+  line-height: 1.1;
+
+  letter-spacing: -1px;
+}
+
+
+.instructors-hero p {
+  max-width: 650px;
+
+  margin: 0 auto;
+
+  color: #dbeafe;
+
+  font-size: 17px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.instructors-main {
+  width: 88%;
+
+  max-width: 1250px;
+
+  margin: 0 auto;
+
+  padding: 42px 0 70px;
+}
+
+
+/* =========================
+   CONTROLS
+========================= */
+
+.instructors-controls {
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 18px;
+
+  padding: 22px;
+
+  margin-bottom: 35px;
+
+  box-shadow:
+    0 8px 25px
+    rgba(15, 23, 42, 0.05);
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box {
+  position: relative;
+
+  width: 100%;
+}
+
+
+.search-icon {
+  position: absolute;
+
+  left: 16px;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  font-size: 17px;
+}
+
+
+.search-box input {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  border: 1px solid #dfe3ea;
+
+  border-radius: 12px;
+
+  padding:
+    14px
+    16px
+    14px
+    46px;
+
+  font-size: 15px;
+
+  outline: none;
+
+  color: #172033;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.search-box input:focus {
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(37, 99, 235, 0.1);
+}
+
+
+.search-box input::placeholder {
+  color: #9aa2b1;
+}
+
+
+/* =========================
+   FILTERS
+========================= */
+
+.subject-filters {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 9px;
+
+  margin-top: 17px;
+}
+
+
+.subject-filter {
+  border: 1px solid #dfe3ea;
+
+  background: #ffffff;
+
+  color: #596273;
+
+  border-radius: 999px;
+
+  padding: 8px 15px;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+
+.subject-filter:hover {
+  border-color: #2563eb;
+
+  color: #2563eb;
+}
+
+
+.subject-filter.active {
+  background: #2563eb;
+
+  color: #ffffff;
+
+  border-color: #2563eb;
+}
+
+
+/* =========================
+   RESULTS HEADER
+========================= */
+
+.results-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}
+
+
+.results-header h2 {
+  margin: 0 0 5px;
+
+  font-size: 25px;
+
+  color: #172033;
+}
+
+
+.results-header p {
+  margin: 0;
+
+  color: #7b8495;
+
+  font-size: 14px;
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.instructors-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(
+        290px,
+        1fr
+      )
+    );
+
+  gap: 24px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.instructor-card {
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  display: flex;
+
+  flex-direction: column;
+
+  min-height: 480px;
+
+  box-shadow:
+    0 8px 25px
+    rgba(15, 23, 42, 0.05);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.instructor-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 18px 40px
+    rgba(15, 23, 42, 0.1);
+}
+
+
+/* =========================
+   CARD TOP
+========================= */
+
+.instructor-card-top {
+  min-height: 135px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #eff6ff,
+      #eef2ff
+    );
+
+  padding: 25px;
+
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+}
+
+
+/* =========================
+   AVATAR
+========================= */
+
+.instructor-avatar {
+  width: 78px;
+
+  height: 78px;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #2563eb,
+      #4f46e5
+    );
+
+  border: 4px solid #ffffff;
+
+  box-shadow:
+    0 8px 20px
+    rgba(37, 99, 235, 0.2);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+
+.instructor-avatar img {
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+}
+
+
+.instructor-avatar span {
+  color: #ffffff;
+
+  font-size: 29px;
+
+  font-weight: 800;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.instructor-status {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  background: #ffffff;
+
+  padding: 6px 10px;
+
+  border-radius: 999px;
+
+  color: #15803d;
+
+  font-size: 11px;
+
+  font-weight: 800;
+}
+
+
+.status-dot {
+  width: 7px;
+
+  height: 7px;
+
+  background: #22c55e;
+
+  border-radius: 50%;
+}
+
+
+/* =========================
+   CARD INFO
+========================= */
+
+.instructor-info {
+  padding: 24px;
+
+  flex: 1;
+}
+
+
+.instructor-info h3 {
+  margin: 0 0 5px;
+
+  font-size: 21px;
+
+  color: #172033;
+}
+
+
+.instructor-role {
+  margin: 0 0 15px;
+
+  color: #2563eb;
+
+  font-size: 13px;
+
+  font-weight: 700;
+}
+
+
+.instructor-bio {
+  color: #667085;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+
+  margin: 0 0 18px;
+
+  display: -webkit-box;
+
+  -webkit-line-clamp: 3;
+
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+
+
+/* =========================
+   EXPERIENCE
+========================= */
+
+.instructor-experience {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: #596273;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  margin-bottom: 17px;
+}
+
+
+/* =========================
+   TAGS
+========================= */
+
+.instructor-tags {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-bottom: 15px;
+}
+
+
+.instructor-tag {
+  background: #f1f5f9;
+
+  color: #475569;
+
+  border-radius: 7px;
+
+  padding: 5px 9px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+}
+
+
+.more-tag {
+  background: #e0e7ff;
+
+  color: #4338ca;
+}
+
+
+/* =========================
+   GRADES
+========================= */
+
+.instructor-grades {
+  display: flex;
+
+  gap: 5px;
+
+  font-size: 12px;
+
+  color: #7b8495;
+
+  line-height: 1.5;
+}
+
+
+.instructor-grades span:first-child {
+  font-weight: 700;
+
+  color: #596273;
+}
+
+
+/* =========================
+   CARD FOOTER
+========================= */
+
+.instructor-card-footer {
+  border-top: 1px solid #eef0f3;
+
+  padding: 17px 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+}
+
+
+.instructor-price {
+  display: flex;
+
+  align-items: baseline;
+
+  gap: 3px;
+
+  color: #667085;
+
+  font-size: 11px;
+}
+
+
+.instructor-price strong {
+  color: #172033;
+
+  font-size: 19px;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.view-instructor-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  text-decoration: none;
+
+  border-radius: 10px;
+
+  padding: 10px 14px;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.view-instructor-button:hover {
+  background: #1d4ed8;
+
+  transform: translateX(2px);
+}
+
+
+/* =========================
+   STATES
+========================= */
+
+.instructors-state {
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 20px;
+
+  padding: 65px 25px;
+
+  text-align: center;
+
+  box-shadow:
+    0 8px 25px
+    rgba(15, 23, 42, 0.04);
+}
+
+
+.instructors-state h2 {
+  margin: 15px 0 8px;
+
+  color: #172033;
+
+  font-size: 23px;
+}
+
+
+.instructors-state p {
+  margin: 0 auto;
+
+  max-width: 500px;
+
+  color: #7b8495;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+
+.state-icon {
+  font-size: 38px;
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.loading-spinner {
+  width: 38px;
+
+  height: 38px;
+
+  margin: 0 auto;
+
+  border: 4px solid #e5e7eb;
+
+  border-top-color: #2563eb;
+
+  border-radius: 50%;
+
+  animation:
+    instructors-spin
+    0.8s linear infinite;
+}
+
+
+@keyframes instructors-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+.error-state {
+  border-color: #fecaca;
+}
+
+
+.retry-button,
+.clear-filters-button {
+  border: none;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  padding: 11px 18px;
+
+  border-radius: 10px;
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  margin-top: 20px;
+
+  transition:
+    background 0.2s ease;
+}
+
+
+.retry-button:hover,
+.clear-filters-button:hover {
+  background: #1d4ed8;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+  .instructors-hero {
+    padding: 55px 5%;
+  }
+
+  .instructors-main {
+    width: 92%;
+  }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+  .instructors-hero {
+    padding: 45px 5%;
+  }
+
+  .instructors-hero h1 {
+    font-size: 34px;
+  }
+
+  .instructors-hero p {
+    font-size: 15px;
+  }
+
+  .instructors-main {
+    padding-top: 25px;
+  }
+
+  .instructor-card-footer {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .view-instructor-button {
+    width: 100%;
+
+    justify-content: center;
+
+    box-sizing: border-box;
+  }
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 450px) {
+
+  .instructors-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .instructors-controls {
+    padding: 15px;
+  }
+
+  .subject-filters {
+    gap: 6px;
+  }
+
+  .subject-filter {
+    padding: 7px 11px;
+  }
+}

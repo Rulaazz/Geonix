@@ -1,0 +1,690 @@
+/* =========================
+   PAGE
+========================= */
+
+.instructor-setup-page {
+  min-height: 100vh;
+
+  background: #f5f7fb;
+
+  color: #172033;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.setup-main {
+  width: 100%;
+
+  max-width: 1050px;
+
+  margin: 0 auto;
+
+  padding: 55px 24px 80px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.setup-hero {
+  max-width: 720px;
+
+  margin: 0 auto 40px;
+
+  text-align: center;
+}
+
+.setup-hero-icon {
+  width: 80px;
+  height: 80px;
+
+  margin: 0 auto 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 24px;
+
+  background: #eff6ff;
+
+  font-size: 40px;
+}
+
+.setup-label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #2563eb;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.6px;
+
+  text-transform: uppercase;
+}
+
+.setup-hero h1 {
+  margin: 0 0 14px;
+
+  font-size: 38px;
+
+  line-height: 1.2;
+}
+
+.setup-hero p {
+  max-width: 650px;
+
+  margin: 0 auto;
+
+  color: #687386;
+
+  font-size: 16px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================
+   BENEFITS
+========================= */
+
+.setup-benefits {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 18px;
+
+  margin-bottom: 28px;
+}
+
+.benefit-card {
+  padding: 25px;
+
+  background: #ffffff;
+
+  border: 1px solid #e6eaf0;
+
+  border-radius: 17px;
+
+  box-shadow:
+    0 8px 25px
+    rgba(23, 32, 51, 0.05);
+}
+
+.benefit-icon {
+  width: 46px;
+  height: 46px;
+
+  margin-bottom: 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+
+  background: #eff6ff;
+
+  font-size: 22px;
+}
+
+.benefit-card h3 {
+  margin: 0 0 8px;
+
+  font-size: 16px;
+}
+
+.benefit-card p {
+  margin: 0;
+
+  color: #718096;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================
+   SETUP CARD
+========================= */
+
+.setup-card {
+  padding: 32px;
+
+  background: #ffffff;
+
+  border: 1px solid #e1e6ee;
+
+  border-radius: 21px;
+
+  box-shadow:
+    0 12px 35px
+    rgba(23, 32, 51, 0.07);
+}
+
+.setup-card-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 25px;
+}
+
+.setup-card-header h2 {
+  margin: 0;
+
+  font-size: 23px;
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 15px;
+
+  background: #172554;
+
+  color: #ffffff;
+
+  font-size: 14px;
+
+  font-weight: 800;
+}
+
+
+/* =========================
+   ACCOUNT PREVIEW
+========================= */
+
+.account-preview {
+  padding: 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e6eaf0;
+
+  border-radius: 14px;
+}
+
+.preview-avatar {
+  width: 55px;
+  height: 55px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 16px;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  font-size: 21px;
+
+  font-weight: 800;
+}
+
+.preview-info {
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.preview-info strong {
+  font-size: 15px;
+
+  overflow-wrap: anywhere;
+}
+
+.preview-info span {
+  color: #64748b;
+
+  font-size: 13px;
+
+  overflow-wrap: anywhere;
+}
+
+.preview-info small {
+  margin-top: 3px;
+
+  color: #2563eb;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  text-transform: capitalize;
+}
+
+
+/* =========================
+   NOTICE
+========================= */
+
+.setup-notice {
+  margin: 20px 0;
+
+  padding: 15px 17px;
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 11px;
+
+  background: #eff6ff;
+
+  border: 1px solid #bfdbfe;
+
+  border-radius: 11px;
+}
+
+.setup-notice span {
+  flex-shrink: 0;
+
+  font-size: 17px;
+}
+
+.setup-notice p {
+  margin: 1px 0 0;
+
+  color: #1e40af;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================
+   MESSAGES
+========================= */
+
+.setup-error,
+.setup-success {
+  margin-bottom: 17px;
+
+  padding: 13px 15px;
+
+  border-radius: 10px;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+.setup-error {
+  background: #fef2f2;
+
+  border: 1px solid #fecaca;
+
+  color: #b91c1c;
+}
+
+.setup-success {
+  background: #f0fdf4;
+
+  border: 1px solid #bbf7d0;
+
+  color: #15803d;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.become-instructor-button {
+  width: 100%;
+
+  min-height: 52px;
+
+  border: none;
+
+  border-radius: 11px;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  font-size: 14px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.become-instructor-button:hover:not(:disabled) {
+  background: #1d4ed8;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 9px 20px
+    rgba(37, 99, 235, 0.22);
+}
+
+.become-instructor-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.become-instructor-button:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================
+   FUTURE SECTION
+========================= */
+
+.future-section {
+  margin-top: 35px;
+
+  padding: 28px;
+
+  background: #ffffff;
+
+  border: 1px solid #e6eaf0;
+
+  border-radius: 18px;
+}
+
+.future-section h2 {
+  margin: 0 0 22px;
+
+  font-size: 21px;
+}
+
+.future-list {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 12px;
+}
+
+.future-list div {
+  min-height: 46px;
+
+  padding: 13px 15px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  background: #f8fafc;
+
+  border-radius: 10px;
+
+  color: #536174;
+
+  font-size: 13px;
+}
+
+.future-list span {
+  width: 20px;
+
+  flex-shrink: 0;
+
+  font-weight: 800;
+
+  text-align: center;
+}
+
+.future-list .completed {
+  color: #16a34a;
+}
+
+.future-list .upcoming {
+  color: #94a3b8;
+}
+
+
+/* =========================
+   SUCCESS / LOGIN CARD
+========================= */
+
+.setup-success-card,
+.setup-message-card {
+  max-width: 600px;
+
+  margin: 60px auto;
+
+  padding: 45px 35px;
+
+  box-sizing: border-box;
+
+  text-align: center;
+
+  background: #ffffff;
+
+  border: 1px solid #e6eaf0;
+
+  border-radius: 22px;
+
+  box-shadow:
+    0 12px 35px
+    rgba(23, 32, 51, 0.07);
+}
+
+.large-success-icon {
+  width: 72px;
+  height: 72px;
+
+  margin: 0 auto 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #dcfce7;
+
+  color: #15803d;
+
+  font-size: 35px;
+
+  font-weight: 800;
+}
+
+.setup-success-card h1,
+.setup-message-card h1 {
+  margin: 0 0 12px;
+
+  font-size: 28px;
+
+  line-height: 1.25;
+}
+
+.setup-success-card p,
+.setup-message-card p {
+  max-width: 500px;
+
+  margin: 0 auto 25px;
+
+  color: #718096;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+.setup-primary-button {
+  min-height: 48px;
+
+  padding: 0 20px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  text-decoration: none;
+
+  font-size: 14px;
+
+  font-weight: 800;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.setup-primary-button:hover {
+  background: #1d4ed8;
+
+  transform: translateY(-1px);
+}
+
+.setup-message-icon {
+  margin-bottom: 15px;
+
+  font-size: 40px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 800px) {
+  .setup-benefits {
+    grid-template-columns: 1fr;
+  }
+
+  .setup-main {
+    padding-top: 35px;
+  }
+
+  .setup-hero h1 {
+    font-size: 31px;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .setup-main {
+    padding:
+      30px
+      15px
+      55px;
+  }
+
+  .setup-card {
+    padding: 23px;
+  }
+
+  .setup-card-header {
+    align-items: flex-start;
+  }
+
+  .setup-card-header h2 {
+    font-size: 19px;
+  }
+
+  .account-preview {
+    align-items: flex-start;
+  }
+
+  .future-list {
+    grid-template-columns: 1fr;
+  }
+
+  .future-section {
+    padding: 23px;
+  }
+
+  .setup-success-card,
+  .setup-message-card {
+    margin: 30px auto;
+
+    padding:
+      35px
+      22px;
+  }
+}
+
+
+@media (max-width: 420px) {
+  .setup-card-header {
+    flex-direction: column;
+  }
+
+  .step-number {
+    width: 44px;
+    height: 44px;
+  }
+
+  .setup-hero h1 {
+    font-size: 28px;
+  }
+
+  .setup-hero p {
+    font-size: 14px;
+  }
+
+  .benefit-card {
+    padding: 21px;
+  }
+}
